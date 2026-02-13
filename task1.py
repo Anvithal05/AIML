@@ -1,16 +1,18 @@
-import pandas as pd
-# Load data
-df = pd.read_csv("customer.csv")
-# Shape before cleaning
-print("Shape before cleaning:", df.shape)
-# Missing values report
-print("\nMissing Values Report:")
-print(df.isna().sum())
-# Fill missing numeric values with median
-numeric_cols = df.select_dtypes(include=['number']).columns
-for col in numeric_cols:
-    df[col] = df[col].fillna(df[col].median())
-# Remove duplicate rows
-df = df.drop_duplicates()
-# Shape after cleaning
-print("\nShape after cleaning:", df.shape)
+# line_plot.py
+
+import matplotlib.pyplot as plt
+
+# Data
+months = [1, 2, 3, 4, 5]
+revenue = [2000, 4500, 4000, 7500, 9000]
+
+# Create line plot
+plt.plot(months, revenue)
+
+# Add title and labels
+plt.title("Monthly Revenue Growth")
+plt.xlabel("Month")
+plt.ylabel("Revenue in USD")
+
+# Show the plot
+plt.show()
