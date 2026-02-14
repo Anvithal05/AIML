@@ -1,12 +1,19 @@
-import matplotlib.pyplot as plt
+import pandas as pd
 
-study_hours = [1, 2, 3, 4, 5, 6, 7, 8]
-scores = [50, 55, 65, 70, 75, 85, 90, 95]
+products = pd.Series(
+    [700, 150, 300],
+    index=['Laptop', 'Mouse', 'Keyboard']
+)
 
-plt.scatter(study_hours, scores)
+laptop_price = products['Laptop']
 
-plt.title("Study Hours vs Exam Scores")
-plt.xlabel("Hours Studied")
-plt.ylabel("Exam Score")
+first_two = products.iloc[0:2]
 
-plt.show()
+print("Full Series:")
+print(products)
+
+print("\nPrice of Laptop:")
+print(laptop_price)
+
+print("\nFirst Two Products:")
+print(first_two)

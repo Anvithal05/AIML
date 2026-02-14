@@ -1,25 +1,24 @@
-import matplotlib.pyplot as plt
+import pandas as pd
 
-categories = ['Electronics', 'Clothing', 'Home']
-sales = [300, 450, 200]
+grades = pd.Series([85, None, 92, 45, None, 78, 55])
 
-months = [1, 2, 3, 4, 5]
-monthly_sales = [500, 700, 650, 900, 1100]
+missing = grades.isnull()
 
-#Subplot 1: Bar Chart
-plt.subplot(1, 2, 1)  # 1 row, 2 columns, position 1
-plt.bar(categories, sales)
-plt.title("Sales by Category")
-plt.xlabel("Category")
-plt.ylabel("Sales")
+filled_grades = grades.fillna(0)
 
-#Subplot 2: Line Plot
-plt.subplot(1, 2, 2)  # 1 row, 2 columns, position 2
-plt.plot(months, monthly_sales)
-plt.title("Monthly Sales Trend")
-plt.xlabel("Month")
-plt.ylabel("Sales")
+# Apply boolean mask (scores > 60)
+filtered = filled_grades[filled_grades > 60]
 
-plt.tight_layout()
+# Print results
+print("Original Series:")
+print(grades)
 
-plt.show()
+print("\nMissing Values (True means missing):")
+print(missing)
+
+print("\nFilled Series (Missing replaced with 0):")
+print(filled_grades)
+
+print("\nScores Greater Than 60:")
+print(filtered)
+

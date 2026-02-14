@@ -1,16 +1,13 @@
 import pandas as pd
 
-data = {
-    "Location": [" New York", "new york", "NEW YORK ", "Los Angeles", " los angeles "]
-}
+usernames = pd.Series([' Alice ', 'bOB', ' Charlie_Data ', 'daisy'])
 
-df = pd.DataFrame(data)
+cleaned = usernames.str.strip().str.lower()
 
-print("Before cleaning:")
-print(df["Location"].unique())
+contains_a = cleaned.str.contains('a')
 
-# Clean text
-df["Location"] = df["Location"].str.strip().str.title()
+print("Cleaned Usernames:")
+print(cleaned)
 
-print("\nAfter cleaning:")
-print(df["Location"].unique())
+print("\nNames Containing 'a':")
+print(contains_a)
