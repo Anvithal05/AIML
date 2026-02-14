@@ -1,18 +1,12 @@
-# line_plot.py
-
 import matplotlib.pyplot as plt
 
-# Data
-months = [1, 2, 3, 4, 5]
-revenue = [2000, 4500, 4000, 7500, 9000]
+study_hours = [1, 2, 3, 4, 5, 6, 7, 8]
+scores = [50, 55, 65, 70, 75, 85, 90, 95]
 
-# Create line plot
-plt.plot(months, revenue)
+plt.scatter(study_hours, scores)
 
-# Add title and labels
-plt.title("Monthly Revenue Growth")
-plt.xlabel("Month")
-plt.ylabel("Revenue in USD")
+plt.title("Study Hours vs Exam Scores")
+plt.xlabel("Hours Studied")
+plt.ylabel("Exam Score")
 
-# Show the plot
 plt.show()

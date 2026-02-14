@@ -1,15 +1,25 @@
-import pandas as pd
+import matplotlib.pyplot as plt
 
-# Example dataset
-data = {
-    "Price": ["$120", "$250", "$180", "$300"],
-    "Date": ["2026-01-01", "2026-01-05", "2026-01-10", "2026-01-15"]
-}
+categories = ['Electronics', 'Clothing', 'Home']
+sales = [300, 450, 200]
 
-df = pd.DataFrame(data)
-print(df.dtypes)
-df["Price"] = df["Price"].str.replace("$", "", regex=False).astype(float)
-print(df.dtypes)
-print(df["Price"].mean())
-df["Date"] = pd.to_datetime(df["Date"])
-print(df.dtypes)
+months = [1, 2, 3, 4, 5]
+monthly_sales = [500, 700, 650, 900, 1100]
+
+#Subplot 1: Bar Chart
+plt.subplot(1, 2, 1)  # 1 row, 2 columns, position 1
+plt.bar(categories, sales)
+plt.title("Sales by Category")
+plt.xlabel("Category")
+plt.ylabel("Sales")
+
+#Subplot 2: Line Plot
+plt.subplot(1, 2, 2)  # 1 row, 2 columns, position 2
+plt.plot(months, monthly_sales)
+plt.title("Monthly Sales Trend")
+plt.xlabel("Month")
+plt.ylabel("Sales")
+
+plt.tight_layout()
+
+plt.show()
