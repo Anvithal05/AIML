@@ -1,24 +1,25 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-grades = pd.Series([85, None, 92, 45, None, 78, 55])
+# Sample data
+data = {
+    "SquareFootage": [800, 1000, 1200, 1500, 1800, 2000, 2200, 2500],
+    "Price": [200000, 250000, 300000, 360000, 400000, 450000, 480000, 550000],
+    "Location": ["Urban", "Urban", "Suburban", "Suburban", "Suburban", "Urban", "Urban", "Suburban"]
+}
 
-missing = grades.isnull()
+df = pd.DataFrame(data)
 
-filled_grades = grades.fillna(0)
+# Scatter Plot
+plt.figure()
+plt.scatter(df["SquareFootage"], df["Price"])
+plt.xlabel("Square Footage")
+plt.ylabel("Price")
+plt.title("Square Footage vs Price")
+plt.show()
 
-# Apply boolean mask (scores > 60)
-filtered = filled_grades[filled_grades > 60]
-
-# Print results
-print("Original Series:")
-print(grades)
-
-print("\nMissing Values (True means missing):")
-print(missing)
-
-print("\nFilled Series (Missing replaced with 0):")
-print(filled_grades)
-
-print("\nScores Greater Than 60:")
-print(filtered)
-
+plt.figure()
+sns.boxplot(x="Location", y="Price", data=df)
+plt.title("Location vs Price")
+plt.show()

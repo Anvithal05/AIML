@@ -1,19 +1,33 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-products = pd.Series(
-    [700, 150, 300],
-    index=['Laptop', 'Mouse', 'Keyboard']
-)
+# Sample housing dataset
+data = {
+    "Price": [200000, 220000, 250000, 275000, 300000, 320000,
+              350000, 400000, 450000, 500000, 800000],
+    "City": ["New York", "New York", "Chicago", "Chicago",
+             "Los Angeles", "Los Angeles",
+             "Chicago", "New York",
+             "Los Angeles", "Chicago",
+             "New York"]
+}
 
-laptop_price = products['Laptop']
+df = pd.DataFrame(data)
+plt.figure()
+sns.histplot(df["Price"], kde=True)
+plt.title("Distribution of Housing Prices")
+plt.xlabel("Price")
+plt.ylabel("Frequency")
+plt.show()
 
-first_two = products.iloc[0:2]
+skewness = df["Price"].skew()
+kurtosis = df["Price"].kurt()
 
-print("Full Series:")
-print(products)
+print("Skewness:", skewness)
+print("Kurtosis:", kurtosis)
 
-print("\nPrice of Laptop:")
-print(laptop_price)
-
-print("\nFirst Two Products:")
-print(first_two)
+plt.figure()
+sns.countplot(x="City", data=df)
+plt.title("Number of Houses per City")
+plt.show()
