@@ -1,26 +1,33 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# Create sample data
+# Sample housing dataset
 data = {
-    "Transmission": ["Automatic", "Manual", "Automatic", "Manual", "Automatic"],
-    "Color": ["Red", "Blue", "Green", "Blue", "Red"]
+    "Price": [200000, 220000, 250000, 275000, 300000, 320000,
+              350000, 400000, 450000, 500000, 800000],
+    "City": ["New York", "New York", "Chicago", "Chicago",
+             "Los Angeles", "Los Angeles",
+             "Chicago", "New York",
+             "Los Angeles", "Chicago",
+             "New York"]
 }
 
 df = pd.DataFrame(data)
+plt.figure()
+sns.histplot(df["Price"], kde=True)
+plt.title("Distribution of Housing Prices")
+plt.xlabel("Price")
+plt.ylabel("Frequency")
+plt.show()
 
-print("Original Data:")
-print(df)
+skewness = df["Price"].skew()
+kurtosis = df["Price"].kurt()
 
-from sklearn.preprocessing import LabelEncoder
+print("Skewness:", skewness)
+print("Kurtosis:", kurtosis)
 
-le = LabelEncoder()
-
-df["Transmission"] = le.fit_transform(df["Transmission"])
-
-print("\nAfter Label Encoding (Transmission):")
-print(df)
-
-df = pd.get_dummies(df, columns=["Color"], drop_first=True)
-
-print("\nAfter One-Hot Encoding (Color):")
-print(df)
+plt.figure()
+sns.countplot(x="City", data=df)
+plt.title("Number of Houses per City")
+plt.show()
