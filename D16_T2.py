@@ -1,32 +1,16 @@
-import numpy as np
 import pandas as pd
-
-# Set random seed
-np.random.seed(42)
-
-# Create sample dataset (Normal distribution + extreme outliers)
-data = np.random.normal(loc=50, scale=10, size=1000)
-
-# Add extreme values manually
-data = np.append(data, [120, 130, -20])
-
-# Create DataFrame
-df = pd.DataFrame({"values": data})
-
-# 1️⃣ Calculate Mean and Standard Deviation
-mean = df["values"].mean()
-std = df["values"].std()
-
-print("Mean (μ):", mean)
-print("Standard Deviation:", std)
-
-# 2️⃣ Create Z-score column
-df["z_score"] = (df["values"] - mean) / std
-
-# 3️⃣ Identify outliers where |Z| > 3
+import numpy as np
+data = {
+    "values": [10, 12, 11, 13, 12, 14, 15, 100, 11, 12, 13, 14, 12, 13]
+}
+df = pd.DataFrame(data)
+mu = df["values"].mean()
+sigma = df["values"].std()
+print(f"Mean (μ): {mu:.2f}")
+print(f"Standard Deviation (σ): {sigma:.2f}")
+df["z_score"] = (df["values"] - mu) / sigma
 outliers = df[np.abs(df["z_score"]) > 3]
-
+print("\nDataset with z-scores:")
+print(df)
 print("\nOutliers (|Z| > 3):")
 print(outliers)
-
-print("\nTotal Outliers Found:", len(outliers))

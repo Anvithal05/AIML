@@ -1,52 +1,33 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import seaborn as sns
-
-sns.set(style="whitegrid")
-
-# Set random seed for reproducibility
+import matplotlib.pyplot as plt
 np.random.seed(42)
-
-# 1️⃣ Generate datasets
-normal_data = np.random.normal(loc=170, scale=10, size=1000)          # Human Heights (Normal)
-right_skewed_data = np.random.exponential(scale=50000, size=1000)     # Household Income (Right-Skewed)
-left_skewed_data = 100 - np.random.exponential(scale=10, size=1000)   # Easy Exam Scores (Left-Skewed)
-
-# Convert to Pandas Series
-normal_series = pd.Series(normal_data)
-right_series = pd.Series(right_skewed_data)
-left_series = pd.Series(left_skewed_data)
-
-# 2️⃣ Plot Histograms with KDE
-plt.figure(figsize=(18,5))
-
-plt.subplot(1,3,1)
-sns.histplot(normal_series, kde=True)
-plt.title("Normal Distribution (Heights)")
-
-plt.subplot(1,3,2)
-sns.histplot(right_series, kde=True)
-plt.title("Right-Skewed Distribution (Income)")
-
-plt.subplot(1,3,3)
-sns.histplot(left_series, kde=True)
-plt.title("Left-Skewed Distribution (Easy Exam Scores)")
-
-plt.tight_layout()
-plt.show()
-
-# 3️⃣ Compare Mean and Median
-print("Normal Distribution:")
-print("Mean:", normal_series.mean())
-print("Median:", normal_series.median())
-print()
-
-print("Right-Skewed Distribution:")
-print("Mean:", right_series.mean())
-print("Median:", right_series.median())
-print()
-
-print("Left-Skewed Distribution:")
-print("Mean:", left_series.mean())
-print("Median:", left_series.median())
+heights = np.random.normal(loc=170, scale=10, size=1000)   
+incomes = np.random.lognormal(mean=10, sigma=1, size=1000) 
+scores = 100 - np.random.beta(a=2, b=5, size=1000) * 100   
+df = pd.DataFrame({
+    "Heights": heights,
+    "Incomes": incomes,
+    "Scores": scores
+})
+def analyze_distribution(data, title):
+    mean_val = np.mean(data)
+    median_val = np.median(data)
+    plt.figure(figsize=(7,4))
+    sns.histplot(data, kde=True, bins=30, color="skyblue")
+    plt.axvline(mean_val, color="red", linestyle="--", label=f"Mean = {mean_val:.2f}")
+    plt.axvline(median_val, color="green", linestyle="-.", label=f"Median = {median_val:.2f}")
+    plt.title(title)
+    plt.legend()
+    plt.show()
+    print(f"{title}: Mean = {mean_val:.2f}, Median = {median_val:.2f}")
+    if mean_val > median_val:
+        print("Observation: Right-Skewed (Mean > Median)\n")
+    elif mean_val < median_val:
+        print("Observation: Left-Skewed (Mean < Median)\n")
+    else:
+        print("Observation: Symmetric (Mean ≈ Median)\n")
+analyze_distribution(df["Heights"], "Human Heights (Normal)")
+analyze_distribution(df["Incomes"], "Household Incomes (Right-Skewed)")
+analyze_distribution(df["Scores"], "Test Scores (Left-Skewed)")
